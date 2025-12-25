@@ -1,0 +1,50 @@
+---
+# ================================
+#  Set ACI Login Fact
+# ================================
+- name: Set aci_login
+  set_fact:
+    aci_login: &aci_login
+      hostname: "{{ apic_host }}"
+      username: "{{ apic_username }}"
+      password: "{{ apic_password }}"
+      validate_certs: "{{ apic_validate_certs }}"
+      use_proxy: "{{ apic_use_proxy }}"
+
+# ================================
+#  Debug Tenant Data
+# ================================
+- name: Show tenant data
+  debug:
+    var: data
+
+# ================================
+# 1) Create Tenants
+# ================================
+- name: Add tenants
+  aci_tenant:
+    <<: *aci_login
+    tenant: "{{ item.name }}"
+    state: present
+  loop: "{{ data }}"
+  delegate_to: localhost
+
+# ================================
+# 2) Create Application Profiles
+# ================================
+- name: Add apps
+  aci_ap:
+    <<: *aci_login
+    tenant: "{{ item.0.name }}"
+    ap: "{{ item.1.name }}"
+    state: present
+  with_subelements:
+    - "{{ data }}"
+    - apps
+  delegate_to: localhost
+
+# ================================
+# 3) Create EPGs (Handled in loop_ap.yaml)
+# ================================
+- name: Create all EPGs
+  import_tasks: loop_ap.yaml

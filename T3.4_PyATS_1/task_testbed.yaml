@@ -1,0 +1,31 @@
+testbed:
+  name: DevNet Expert - Small Branch Topology
+  alias: branch_testbed
+  credentials:
+    default:
+      username: expert
+      password: "1234QWer!"
+  custom:
+    vlan_sot: vlan_sot.csv
+
+devices:
+
+  brch-sw-01:
+    os: nxos
+    type: Nexus 9300v
+    alias: brch-sw-01
+    connections:
+      default:
+        protocol: ssh
+        ip: 192.168.5.103
+        port: 22
+
+  brch-sw-02:
+    os: nxos
+    type: Nexus 9300v
+    alias: brch-sw-02
+    connections:
+      default:
+        protocol: ssh
+        ip: 192.168.5.104
+        port: 22

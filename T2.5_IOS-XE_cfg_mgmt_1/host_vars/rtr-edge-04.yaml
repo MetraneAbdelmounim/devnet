@@ -1,0 +1,20 @@
+---
+BGP:
+  ASN: "65533" # BGP Autonomous System Number of the router
+
+  networks:
+    - network_int: "172.16.113.1"       # Internal network address
+      mask_int: "255.255.255.255"       # Internal network mask
+      network_ext: "172.16.114.0"       # External network address
+      mask_ext: "255.255.254.0"         # External network mask
+
+  peers:
+    - neighbor: "172.16.2.1"            # Peer neighbor address
+      peer_asn: "65502"                 # Peer AS
+      route_map:
+        name: "RM-IN"                   # <— Added
+        direction: "in"                 # <— Added
+
+  redistribute:
+    - protocol: ospf
+      process_id: "1"

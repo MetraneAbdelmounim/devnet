@@ -1,0 +1,77 @@
+module access-service {
+
+  namespace "http://example.com/access-service";
+  prefix access-service;
+  
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import tailf-common {
+    prefix tailf;
+  }
+  import tailf-ncs {
+    prefix ncs;
+  }
+
+  description
+    "Bla bla...";
+
+  revision 2016-01-01 {
+    description
+      "Initial revision.";
+  }
+
+  list access-service {
+    description "This is an RFS skeleton service";
+
+    key device;
+    leaf device {
+      type leafref {
+        path "/ncs:devices/ncs:device/ncs:name";
+      }
+    }
+
+    // TODO: Complete the definition of the list of networks aligned to the
+    //       model description provided in the question
+    list networks {
+      key name;
+      leaf name {
+        type string;
+      }
+      leaf network-id {
+        type uint16;
+        mandatory true;
+      }
+      leaf prefix {
+        type inet:ipv4-prefix;
+        mandatory true;
+      }
+      leaf description {
+        type string;
+        mandatory true;
+      }
+    }
+
+    // TODO: Complete the definition of the list of access-ports ligned to
+    //       the model description provided in the question
+    list access-ports {
+      key name;
+      leaf name {
+        type string;
+        mandatory true;
+      }
+      leaf network {
+        type leafref {
+          path "../../networks/name";
+        }
+        mandatory true;
+      }
+    }
+    
+    uses ncs:service-data;
+    ncs:servicepoint access-service-servicepoint;
+    
+    // may replace this with other ways of refering to the devices.
+    
+  }
+}

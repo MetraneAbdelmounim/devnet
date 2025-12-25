@@ -1,0 +1,66 @@
+#! /bin/bash
+
+# Example bash script to authenticate to NX-API REST
+# to retrieve an authentication token that can be used
+# within a Cookie for subsequent requests.
+
+# Lookup the address, username, and password for the device
+# if environment variables are not set
+if [[ -z "${DEVICE_ADDRESS}" ]] || [[ -z "${DEVICE_USERNAME}" ]] || [[ -z "${DEVICE_PASSWORD}" ]]; then
+  echo "What is the NX-API address for the device? (include https:// or http:// as required)"
+  echo "  example: https://192.168.5.103"
+  read DEVICE_ADDRESS
+  echo "What is the username for the device?"
+  read DEVICE_USERNAME
+  echo "What is the password for the device? (Note: Input will be hidden)"
+  read -s DEVICE_PASSWORD
+else
+  echo "Environment Variables found for"
+  echo "  DEVICE_ADDRESS=${DEVICE_ADDRESS}"
+  echo "  DEVICE_USERNAME=${DEVICE_USERNAME}"
+  echo "  DEVICE_PASSWORD=********** (masked)"
+fi
+
+# The required authentication request body to retrieve a token
+LOGIN_BODY='{
+  "aaaUser": {
+    "attributes": {
+      "name": "'${DEVICE_USERNAME}'",
+      "pwd": "'${DEVICE_PASSWORD}'"
+    }
+  }
+}'
+
+# Make the authentication request to retrieve the token
+# The token is to be stored as DEVICE_TOKEN
+#
+# Note: See the file "example-nxapi-login-response.json"
+#       for an example response body from a successful login
+#
+# TODO: Update the CURL request by modifying the URI to successfully authenticate and retrieve a token
+#
+# Note: The option to pass login data is correct as is the JQuery parsing string that is used
+#       to parse out the token from the response body of a successful Login.
+DEVICE_TOKEN=$( \
+curl -k --silent -x POST \
+${DEVICE_ADDRESS}/api/aaaLogin.json \
+--data-raw "${LOGIN_BODY}" \
+| jq --raw-output '.imdata[0].aaaLogin.attributes.token' \
+)
+
+# If the Login attempt failed, the value of the token will be "null"
+# when JQuery attempts to process it.  If no token was returned,
+# exit the script with a 1 error code
+if [ "$DEVICE_TOKEN" == "null" ]
+then
+    exit 1
+fi
+
+# Use the token value to authenticate the request to
+# retrieve data from the NX-OS device
+#
+# TODO: Update the CURL request to include token in the required format
+#
+# NOTE: The value of token is stored in the variable ${DEVICE_TOKEN}
+curl -k --silent --globoff --header "Cookie: APIC-cookie=${DEVICE_TOKEN}" \
+    ${DEVICE_ADDRESS}'/api/node/mo/sys/intf/phys-[eth1/11].json'

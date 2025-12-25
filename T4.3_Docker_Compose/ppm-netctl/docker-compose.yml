@@ -1,0 +1,21 @@
+version: '3.5'
+
+services:
+  api:
+    image: ppm-netctl-api:1.0.0
+    volumes:
+      - "./api/settings.toml:/app/settings.toml"
+    depends_on:
+      - db
+    # TODO 1: Service 'api' should automatically restart when a container exits with a non-zero exit code
+
+  web:
+    image: ppm-netctl-web:1.0.0
+    depends_on:
+      - api
+    # TODO 2: map the internal port **80** to the external port **8000**.
+
+  db:
+    image: mongo:5.0.6-focal
+    # TODO 3: load environmental variables from the file 'db/mongodb.env'. Don't use absolute paths.
+    # TODO 4: map a named volume 'db-data' to '/data/db'

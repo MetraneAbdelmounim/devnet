@@ -1,0 +1,35 @@
+version: '3.5'
+
+services:
+  api:
+    image: ppm-netctl-api:1.0.0
+    depends_on:
+      - db
+    volumes:
+      - './api/settings.toml:/app/settings.toml:ro'
+    environment:
+      - NETCTL_DB__HOST=db:27017
+    # TODO 1: The API Servcice should restart on failure (Something like this will be there in real lab)
+    restart: on-failure
+
+  web:
+    # image: ppm-netctl-web:1.0.0 -- in real lab
+    # changed for our rack as ppm-netctl-web:1.0.0 is a custom docker image and is not available on docker hub
+    image: nginx 
+    # TODO 2: Host port 8000 should be mapped to container port 80
+    ports:
+      - 8000:80
+    depends_on:
+      - api
+    
+  db:
+    image: mongo:5.0.6-focal
+    # TODO 3: Bind the volume 'db-data' as '/data/db' inside the container
+    volumes:
+      - "db-data:/data/db"
+    # TODO 4: Set the environment variables mentioned in the 'mongodb.env' file in 'db' directory
+    env_file:
+      - ./db/mongodb.env
+
+volumes:
+  db-data:

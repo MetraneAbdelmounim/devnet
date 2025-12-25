@@ -1,0 +1,28 @@
+- name: Set aci_login
+  set_fact:
+    aci_login: &aci_login
+      hostname: '{{ apic_host }}'
+      username: '{{ apic_username }}'
+      password: '{{ apic_password }}'
+      use_proxy: '{{ apic_use_proxy }}'
+      validate_certs: false
+
+- name: Create EPGs
+  aci_epg:
+    <<: *aci_login
+    # TODO
+    # Provide the correct values for tenant/ap/epg to correctly create the EPGs
+    tenant: "{{ item.0.0.name }}"
+    ap: "{{ item.0.1.name }}"
+    epg: "{{ item.1.name }}"
+  delegate_to: localhost
+    # TODO
+    # Provide the correct values to loop through and create individual EPGs
+  with_subelements:
+    - "{{ query(subelements, data, apps) }}"
+    - epgs
+    # TODO: Ensure the output from this task follows the format:
+    # tenant: <tenant> ap: <ap> epg: <epg>
+    # for example (item=tenant: Ansible-QA ap: Bare-Metals epg: Subnet-192-168-13.0)
+  loop_control:
+    label: "tenant: {{ item.0.0.name }} ap:{{ item.0.1.name }} epg: {{ item.1.name }}"

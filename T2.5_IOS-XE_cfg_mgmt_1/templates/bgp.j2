@@ -1,0 +1,17 @@
+{# This is the example BGP configuration provided by the network architect #}
+{#
+  TODO: Create a Jinja template that will generate the required BGP configuration
+		when used with the provided Python script and YAML data files.
+#}
+
+router bgp 65533
+ bgp log-neighbor-changes
+ neighbor 172.16.2.1 remote-as 65502
+ !
+ address-family ipv4 unicast
+  synchronization
+  network 172.16.113.1 mask 255.255.255.255
+  network 172.16.114.0 mask 255.255.254.0
+  neighbor 172.16.2.1 route-map RM-IN in
+  redistribute ospf 1
+ exit

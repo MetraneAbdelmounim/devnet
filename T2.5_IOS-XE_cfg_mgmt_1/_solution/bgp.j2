@@ -1,0 +1,22 @@
+{# This is the example BGP configuration provided by the network architect #}
+{#
+  TODO: Create a Jinja template that will generate the required BGP configuration
+		when used with the provided Python script and YAML data files.
+#}
+
+router bgp {{ BGP.ASN }}
+ bgp log-neighbor-changes
+ {% for neigh in BGP.peers %} # Might not be needed. It is used only if we have multiple neighbors.
+ neighbor {{ neigh.neighbor }} remote-as {{ neigh.peer_asn }}
+ {% endfor %} # Might not be needed. It is used only if we have multiple neighbors.
+ !
+ address-family ipv4 unicast
+  synchronization
+  {% for net in BGP.networks %}
+  network {{ net.network_int }} mask {{ net.mask_int }}
+  network {{ net.network_ext }} mask {{ net.mask_ext }}
+  {% endfor %}
+  {% for re in BGP.redistribute %} # Might not be needed. It is used only if we have multiple neighbors.
+  redistribute {{ re.protocol }} {{ re.process_id }}
+  {% endfor %} # Might not be needed. It is used only if we have multiple neighbors.
+  exit

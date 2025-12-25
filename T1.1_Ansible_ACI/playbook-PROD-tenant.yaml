@@ -1,0 +1,11 @@
+- name: My playbook
+  hosts: apic-01
+  gather_facts: no
+
+  tasks:
+    - name: Create EPG
+      ansible.builtin.include_role:
+        name: create-aci-topology
+      vars:
+        data: "{{ aci_tenants_data }}"
+          # Pass the correct variable

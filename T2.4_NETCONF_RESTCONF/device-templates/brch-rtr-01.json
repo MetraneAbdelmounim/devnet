@@ -1,0 +1,45 @@
+{
+  "Cisco-IOS-XE-native:native": {
+    "router": {
+      "Cisco-IOS-XE-ospf:router-ospf": {
+        // TODO: Add payload here to do the following:
+        // * Create OSPF process with ID 1
+        // * Set router ID to IP address on GigabitEthernet 1
+      }
+    },
+    "interface": {
+      "GigabitEthernet": [
+        {
+          "name": "2",
+          "ip": {
+            "Cisco-IOS-XE-ospf:router-ospf": {
+              // TODO: Add payload here to do the following:
+              // * Enable OSPF process 1 in area 0 on the interface
+              // * Configure the network type to be point-to-point
+            }
+          }
+        },
+        {
+          "name": "3",
+          "ip": {
+            "Cisco-IOS-XE-ospf:router-ospf": {
+              // TODO: Add payload here to do the following:
+              // * Enable OSPF process 1 in area 0 on the interface
+              // * Configure the network type to be point-to-point
+            }
+          }
+        },
+        {
+          "name": "4",
+          "ip": {
+            "Cisco-IOS-XE-ospf:router-ospf": {
+              // TODO: Add payload here to do the following:
+              // * Enable OSPF process 1 in area 0 on the interface
+              // * Configure the network type to be point-to-point
+            }
+          }
+        }
+      ]
+    }
+  }
+}

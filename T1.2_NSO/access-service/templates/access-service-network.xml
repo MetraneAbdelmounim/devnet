@@ -1,0 +1,38 @@
+<config-template xmlns="http://tail-f.com/ns/config/1.0">
+  <devices xmlns="http://tail-f.com/ns/ncs">
+    <device>
+      <!--
+          Select the devices from some data structure in the service
+          model. In this skeleton the devices are specified in a leaf-list.
+          Select all devices in that leaf-list:
+      -->
+      <name>{/device}</name>
+      <!--
+        TODO: Modify this sample device configuration to create the configuration
+              rendered based on the access-service definition.
+      -->
+      <config>
+        <vlan xmlns="urn:ios">
+          <vlan-list>
+            <id>10</id>
+            <name>workstation</name>
+          </vlan-list>
+        </vlan>
+        <interface xmlns="urn:ios">
+          <Vlan>
+            <name>10</name>
+            <ip>
+              <address>
+                <primary>
+                  <address>100.64.0.254</address>
+                  <mask>255.255.255.0</mask>
+                </primary>
+              </address>
+            </ip>
+            <shutdown tags="delete" />
+          </Vlan>
+        </interface>
+      </config>
+    </device>
+  </devices>
+</config-template>

@@ -1,0 +1,28 @@
+all:
+  hosts:
+    apic-01:
+      apic_host: 192.168.1.200
+  vars:
+    apic_use_proxy: no
+    apic_validate_certs: no
+    apic_username: "{{ lookup('ansible.builtin.env', 'apic_username') }}"
+    apic_password: "{{ lookup('ansible.builtin.env', 'apic_password') }}"
+    aci_tenants_data:
+      - name: Ansible-PROD
+        apps:
+          - name: Hypervisors
+            epgs:
+              - name: Subnet-192-168-1-0
+              - name: Subnet-192-168-2-0
+              
+      - name: Ansible-QA
+        apps:
+          - name: Hypervisors
+            epgs:
+              - name: Subnet-192-168-11-0
+              - name: Subnet-192-168-12-0
+          - name: Bare-Metals
+            epgs:
+              - name: Subnet-192-168-13-0
+              - name: Subnet-192-168-14-0
+              - name: Subnet-192-168-15-0

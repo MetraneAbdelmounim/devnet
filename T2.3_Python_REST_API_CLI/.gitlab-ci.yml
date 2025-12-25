@@ -1,0 +1,8 @@
+stages:
+  - test
+image: python:3.9-alpine
+
+cat_file:
+  stage: test
+  script:
+    - cat test-file.txt

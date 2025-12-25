@@ -1,0 +1,58 @@
+{
+  "imdata": [
+    {
+      "aaaLogin:" {
+        "attributes": {
+          "token": "TOKEN VALUE FROM DEVICE",
+          "siteFingerprint": "",
+          "refreshTimeoutSeconds": "600",
+          "guiIdleTmeoutSeconds": "1200",
+          "restTimeoutSeconds": "300",
+          "creationTime": "1643222215",
+          "firstLoginTime": "1643222215",
+          "userName": "expert",
+          "remoteUser": "false",
+          "unixUserId": "0",
+          "sessionId": "00IXoXJ+ag2bToAtFbISqw==",
+          "lastName": "",
+          "firstName": "",
+          "version": "0.9(14HEAD${version.patch})",
+          "buildTime": "Wed Auth 04 12:41:25 PDT 2021",
+          "controllerId": "0",
+        },
+        "children": [
+        {
+            "aaaUserDomain": {
+              "attributes": {
+                "name": "all",
+                "rolesR": "admin",
+                "rolesW": "admin",
+              },
+              "children": [
+                {
+                  "aaaReadRoles": {
+                    "attributes": {} 
+                  }
+                },
+                [
+                  "aaaWriteRoles": {
+                    "attributes": {},
+                    "children": [
+                      {
+                        "role": {
+                          "attributes": {
+                            "name": "network-admin"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              ]
+            },
+          }
+        ]
+      }
+    }
+  ]
+}

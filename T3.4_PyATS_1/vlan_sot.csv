@@ -1,0 +1,7 @@
+device,vlan id,vlan name,status
+brch-sw-01,1,default,present
+brch-sw-01,10,VLAN0010,present
+brch-sw-01,20,VLAN0020,present
+brch-sw-02,1,default,present
+brch-sw-02,10,VLAN0010,present
+brch-sw-02,20,VLAN0020,present

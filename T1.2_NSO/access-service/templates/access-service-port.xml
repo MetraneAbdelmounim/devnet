@@ -1,0 +1,36 @@
+<config-template xmlns="http://tail-f.com/ns/config/1.0">
+  <devices xmlns="http://tail-f.com/ns/ncs">
+    <device>
+      <!--
+        Select the devices from some data structure in the service
+        model. In this skeleton the devices are specified in a leaf-list.
+        Select all devices in that leaf-list:
+      -->
+      <name>1</name>
+      <!--
+        TODO: Modify this sample device configuration to create the configuration
+        rendered based on the access-service definition.
+      -->
+      <config>
+        <interface xmlns="urn:ios">
+          <GigabitEthernet>
+            <name>1/1</name>
+            <switchport>
+              <mode>
+                <trunk/>
+              </mode>
+              <trunk>
+                <encapsulation>dot1q</encapsulation>
+                <allowed>
+                  <vlan>
+                    <vlans>10</vlans>
+                  </vlan>
+                </allowed>
+              </trunk>
+            </switchport>
+          </GigabitEthernet>
+        </interface>
+      </config>
+    </device>
+  </devices>
+</config-template>

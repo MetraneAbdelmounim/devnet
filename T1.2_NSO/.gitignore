@@ -1,0 +1,11 @@
+netsim/
+logs/
+ncs-cdb
+ncs.conf
+README.ncs
+README.netsim
+scripts/
+state/
+storedstate
+packages/
+target/

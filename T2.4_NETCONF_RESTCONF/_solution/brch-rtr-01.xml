@@ -1,0 +1,86 @@
+<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+        <interface>
+            <GigabitEthernet>
+                <name>2</name>
+                <ip>
+                    <router-ospf xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-ospf">
+                        <!-- TODO: Add payload here to do the following:
+                            * Enable OSPF process 1 in area 0 on the interface
+                            * Configure the network type to be point-to-point.
+                        -->
+                        <ospf>
+                            <process-id>
+                                <id>1</id>
+                                <area>
+                                    <area-id>0</area-id>
+                                </area>
+                            </process-id>
+                            <network>
+                                <point-to-point/>
+                            </network>
+                        </ospf>
+                    </router-ospf>
+                </ip>
+            </GigabitEthernet>
+            <GigabitEthernet>
+                <name>3</name>
+                <ip>
+                    <router-ospf xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-ospf">
+                        <!-- TODO: Add payload here to do the following:
+                            * Enable OSPF process 1 in area 0 on the interface
+                            * Configure the network type to be point-to-point.
+                        -->
+                        <ospf>
+                            <process-id>
+                                <id>1</id>
+                                <area>
+                                    <area-id>0</area-id>
+                                </area>
+                            </process-id>
+                            <network>
+                                <point-to-point/>
+                            </network>
+                        </ospf>
+                    </router-ospf>
+                </ip>
+            </GigabitEthernet>
+            <GigabitEthernet>
+                <name>4</name>
+                <ip>
+                    <router-ospf xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-ospf">
+                        <!-- TODO: Add payload here to do the following:
+                            * Enable OSPF process 1 in area 0 on the interface
+                            * Configure the network type to be point-to-point.
+                        -->
+                        <ospf>
+                            <process-id>
+                                <id>1</id>
+                                <area>
+                                    <area-id>0</area-id>
+                                </area>
+                            </process-id>
+                            <network>
+                                <point-to-point/>
+                            </network>
+                        </ospf>
+                    </router-ospf>
+                </ip>
+            </GigabitEthernet>
+        </interface>
+        <router>
+            <router-ospf xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-ospf">
+                <!-- TODO: Add payload here to do the following:
+                    * Create OSPF process with ID 1
+                    * Set router ID to IP address on GigabitEthernet 1
+                -->
+                <ospf>
+                    <process-id>
+                        <id>1</id>
+                        <router-id>192.168.5.101</router-id>
+                    </process-id>
+                </ospf>
+            </router-ospf>
+        </router>
+    </native>
+</config>

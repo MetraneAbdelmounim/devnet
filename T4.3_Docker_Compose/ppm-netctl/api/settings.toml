@@ -1,0 +1,6 @@
+[db]
+username = "expert"
+password = "1234QWEr!"
+db_name = "ppmDB"
+seed_file = "devices.json"
+

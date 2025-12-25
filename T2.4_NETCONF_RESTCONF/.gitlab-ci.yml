@@ -1,0 +1,17 @@
+stages:
+  - validate
+  - deploy
+image: python:3.9-nc
+
+lint_xml:
+  stage: validate
+  script:
+    - cd device-templates
+    - for i in *.xml; do xmllint --noout ${i}; done
+
+deploy_to_network:
+  stage: deploy
+  needs:
+    - lint_xml
+  script:
+    - ./netconf-deploy.py
