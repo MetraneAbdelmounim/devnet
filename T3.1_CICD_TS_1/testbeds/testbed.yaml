@@ -1,0 +1,92 @@
+testbed:
+  name: DevNet Expert - Small Branch Topology
+  alias: branch_testbed
+  credentials:
+    default:
+      username: "%ENV{NETWORK_USERNAME}"
+      password: "%ENV{NETWORK_PASSWORD}"
+
+devices:
+  brch-rtr-01:
+    os: iosxe
+    type: Catalyst 8000v
+    alias: brch-rtr-01
+    connections:
+      default:
+        protocol: ssh
+        ip: 192.168.5.101
+        port: 22
+  brch-rtr-02:
+    os: iosxe
+    type: Catalyst 8000v
+    alias: brch-rtr-02
+    connections:
+      default:
+        protocol: ssh
+        ip: 192.168.5.102
+        port: 22
+
+  brch-sw-01:
+    os: nxos
+    type: Nexus 9300v
+    alias: brch-sw-01
+    connections:
+      default:
+        protocol: ssh
+        ip: 192.168.5.103
+        port: 22
+  brch-sw-02:
+    os: nxos
+    type: Nexus 9300v
+    alias: brch-sw-02
+    connections:
+      default:
+        protocol: ssh
+        ip: 192.168.5.104
+        port: 22
+
+topology:
+  brch-rtr-01:
+    interfaces:
+      GigabitEthernet1:
+        type: ethernet
+      GigabitEthernet2:
+        type: ethernet
+      GigabitEthernet3:
+        type: ethernet
+      GigabitEthernet4:
+        type: ethernet
+  brch-rtr-02:
+    interfaces:
+      GigabitEthernet1:
+        type: ethernet
+      GigabitEthernet2:
+        type: ethernet
+      GigabitEthernet3:
+        type: ethernet
+      GigabitEthernet4:
+        type: ethernet
+  brch-sw-01:
+    interfaces:
+      mgmt0:
+        type: ethernet
+      Ethernet1/1:
+        type: ethernet
+      Ethernet1/2:
+        type: ethernet
+      Ethernet1/19:
+        type: ethernet
+      Ethernet1/20:
+        type: ethernet
+  brch-sw-02:
+    interfaces:
+      mgmt0:
+        type: ethernet
+      Ethernet1/1:
+        type: ethernet
+      Ethernet1/2:
+        type: ethernet
+      Ethernet1/19:
+        type: ethernet
+      Ethernet1/20:
+        type: ethernet

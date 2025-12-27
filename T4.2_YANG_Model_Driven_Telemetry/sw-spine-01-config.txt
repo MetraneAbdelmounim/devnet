@@ -1,0 +1,16 @@
+feature telemetry
+
+no telemetry
+
+telemetry
+  destination-profile
+    use-vrf management
+  destination-group PPM-TIG
+    # TODO Add receiver config
+  sensor-group sysload
+    data-source YANG
+  ! TODO Add path
+  subscription 100
+    dst-grp PPM-TIG
+  ! TODO Add snsr-grp
+end

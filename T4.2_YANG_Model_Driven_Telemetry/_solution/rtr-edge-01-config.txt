@@ -1,0 +1,27 @@
+no telemetry ietf subscription 1
+no telemetry ietf subscription 2
+!
+telemetry ietf subscription 1
+ encoding encode-kvgpb
+ ! TODO Add filter xpath
+ filter xpath /ios-events-ios-xe-oper:bgp-peer-state-change
+ source-address 192.168.5.112
+ source-vrf management
+ ! TODO Add stream & update
+ stream yang-notif-native
+ update-policy on-change
+ receiver ip address 192.168.4.27 57000 protocol grpc-tls profile telegraf
+!
+telemetry ietf subscription 2
+ ! TODO Ensure streams are sent as self-describing protobufs
+ encoding encode-kvgpb
+ ! TODO Add filter xpath
+ filter xpath /bgp-ios-xe-oper:bgp-state-data/neighbors/neighbor[afi-safi="ipv4-unicast"][vrf-name="default"][neighbor-id="172.16.1.1"]/prefix-activity/received
+ source-address 192.168.5.112
+ source-vrf management
+ ! TODO Add stream & update
+ stream yang-push
+ update-policy periodic 1000
+ receiver ip address 192.168.4.27 57000 protocol grpc-tls profile telegraf
+netconf-yang
+restconf

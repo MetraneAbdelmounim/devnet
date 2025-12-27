@@ -1,0 +1,100 @@
+testbed:
+  name: DevNet Expert - Mock Network for Test Development
+  alias: mock_testbed
+  credentials:
+    default:
+      username: mock
+      password: mock
+
+devices:
+  mock-rtr-01:
+    os: iosxe
+    type: Catalyst 8000v
+    alias: mock-rtr-01
+    connections:
+      defaults:
+        class: unicon.Unicon
+      mock:
+        # yamllint disable-line rule:line-length
+        command: mock_device_cli --os iosxe --mock_data_dir testbeds/mocks/mock-rtr-01 --state connect
+        protocol: unknown
+  mock-rtr-02:
+    os: iosxe
+    type: Catalyst 8000v
+    alias: mock-rtr-02
+    connections:
+      defaults:
+        class: unicon.Unicon
+      mock:
+        # yamllint disable-line rule:line-length
+        command: mock_device_cli --os iosxe --mock_data_dir testbeds/mocks/mock-rtr-02 --state connect
+        protocol: unknown
+
+  mock-sw-01:
+    os: nxos
+    type: Nexus 9300v
+    alias: mock-sw-01
+    connections:
+      defaults:
+        class: unicon.Unicon
+      mock:
+        # yamllint disable-line rule:line-length
+        command: mock_device_cli --os nxos --mock_data_dir testbeds/mocks/mock-sw-01 --state connect
+        protocol: unknown
+  mock-sw-02:
+    os: nxos
+    type: Nexus 9300v
+    alias: mock-sw-02
+    connections:
+      defaults:
+        class: unicon.Unicon
+      mock:
+        # yamllint disable-line rule:line-length
+        command: mock_device_cli --os nxos --mock_data_dir testbeds/mocks/mock-sw-02 --state connect
+        protocol: unknown
+
+topology:
+  mock-rtr-01:
+    interfaces:
+      GigabitEthernet1:
+        type: ethernet
+      GigabitEthernet2:
+        type: ethernet
+      GigabitEthernet3:
+        type: ethernet
+      GigabitEthernet4:
+        type: ethernet
+  mock-rtr-02:
+    interfaces:
+      GigabitEthernet1:
+        type: ethernet
+      GigabitEthernet2:
+        type: ethernet
+      GigabitEthernet3:
+        type: ethernet
+      GigabitEthernet4:
+        type: ethernet
+  mock-sw-01:
+    interfaces:
+      mgmt0:
+        type: ethernet
+      Ethernet1/1:
+        type: ethernet
+      Ethernet1/2:
+        type: ethernet
+      Ethernet1/19:
+        type: ethernet
+      Ethernet1/20:
+        type: ethernet
+  mock-sw-02:
+    interfaces:
+      mgmt0:
+        type: ethernet
+      Ethernet1/1:
+        type: ethernet
+      Ethernet1/2:
+        type: ethernet
+      Ethernet1/19:
+        type: ethernet
+      Ethernet1/20:
+        type: ethernet

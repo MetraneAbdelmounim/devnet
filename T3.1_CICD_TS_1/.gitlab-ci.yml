@@ -1,0 +1,93 @@
+---
+# Set pipeline defaults:
+default:
+  # TODO: 
+  # image: pyats:21.9
+  tags:
+    - docker
+
+# Use stages to ensure that the "gather_process_*" jobs only run if "validate_testbed" succeeds
+stages:
+  - validate
+  - runtests
+
+# This job will make sure that all testbed files are formatted correctly
+# and have no errors.
+validate_testbed:
+  stage: validate
+  script:
+    - >
+      for testbed in testbeds/testbed*.yaml; do
+        echo "Validating $testbed"
+        pyats validate testbed $testbed
+      done
+
+# Mock network tests are of type "mock" and use the testbed "testbed-mock.yaml"
+# and is used during development.  Tests are only run:
+#   - when the pipeline is triggered by a commit to a non-default branch
+gather_processes_mock:
+  needs:
+    - validate_testbed
+  extends: .gather_processes
+  # TODO: 
+  # variables:
+  #   TYPE: mock
+  #   TESTBED: testbed-mock.yaml
+  rules:
+    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+
+#     The "gather_processes_prod" job should run when triggered through web gui
+#       "Run pipeline" button for the default branch (for example main) in addition
+#       to running as scheduled.
+#       This must be accomplished with a SINGLE rule configured on the job
+#       This must work no matter the name of the default branch
+
+
+# Production network tests should only run:
+#   - when executed based on a scheduled pipeline run
+#   - when executed from GitLab UI by clicking the "Run pipeline"
+#   button from the default branch in the project.
+#   - only for pipeline runs on the default branch
+#
+# Production network tests are of type "prod" and use the testbed "testbed.yaml"
+gather_processes_prod:
+  needs:
+    - validate_testbed
+  extends: .gather_processes
+  # TODO: 
+  # variables:
+  #   TYPE: prod
+  #   TESTBED: testbed.yaml
+  rules:
+    # - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web")
+    # TODO: 
+    - if: $CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web"
+
+
+# NOTE: The results from the test are stored in the directory "results" as determined by the
+#       "--output results" attribute to the parse command
+
+# This hidden job acts a template for running the desired network
+# tests.
+#
+# It indicates what network tests to run as part of the
+# script block configuration, the artifacts/results to gather from 
+# the tests.
+#
+# Jobs extending this template job must provide values for the
+# variables:
+#   TYPE: A keyword indicating what network being tested
+#   TESTBED: The pyATS testbed to use for network tests.
+#            Testbeds must be located in the 'testbeds/'
+#            directory in the repository.
+.gather_processes:
+  stage: runtests
+  script:
+    - echo "Gathering results from ${TYPE} using testbed ${TESTBED}"
+    - pyats parse "show processes cpu" --testbed testbeds/${TESTBED} --output results
+
+  artifacts:
+    name: "$(date +%Y%m%d_%H%M%S)-${TYPE}-network-test-results"
+    when: on_success
+    paths:
+      - results/

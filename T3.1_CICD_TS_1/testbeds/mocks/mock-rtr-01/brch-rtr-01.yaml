@@ -1,0 +1,200 @@
+configure:
+  commands:
+    end:
+      new_state: execute
+    line console:
+      new_state: configure_line
+    line console 0:
+      new_state: configure_line
+    no logging console: ''
+  prompt: switch(config)#
+configure_line:
+  commands:
+    end:
+      new_state: execute
+    exec-timeout 0: ''
+    line vty: ''
+    terminal width 511: ''
+  prompt: switch(config-line)#
+connect:
+  commands:
+    ? ''
+    : new_state: execute
+  preface: 'Trying mock_device ...
+
+    Connected to mock_device.
+
+    Escape character is ''^]''.'
+  prompt: ''
+execute:
+  commands:
+    config term:
+      new_state: configure
+    show processes cpu: "CPU utilization for five seconds: 0%/0%; one minute: 0%;\
+    \ five minutes: 0%\r\n
+# DID NOT BOTHER TO ADJUST BELOW OUTPUT. JUST TOOK ONE FROM A C9300v. MIGHT NEED ADJUSTMENT.
+# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+     PID Runtime(ms)     Invoked      uSecs   5Sec   1Min   5Min TTY Process \r\n
+       1           7         185         37  0.00%  0.00%  0.00%   0 Chunk Manager \r\n
+       2       63008      315667        199  0.00%  0.00%  0.00%   0 Load Meter \r\n
+       3           0           1          0  0.00%  0.00%  0.00%   0 PKI Trustpool \r\n
+       5           0           1          0  0.00%  0.00%  0.00%   0 Retransmission o \r\n
+       6           0           1          0  0.00%  0.00%  0.00%   0 IPC ISSU Dispatc \r\n
+       7           0           1          0  0.00%  0.00%  0.00%   0 RO Notify Timers \r\n
+       8         318       52612          6  0.00%  0.00%  0.00%   0 VIDB BACKGD MGR \r\n
+       9      559383      213856       2615  0.00%  0.04%  0.00%   0 Check heaps \r\n
+      10        1838       26306         69  0.00%  0.00%  0.00%   0 Pool Manager \r\n
+      11           0           1          0  0.00%  0.00%  0.00%   0 DiscardQ Backgro \r\n
+      12           1           2        500  0.00%  0.00%  0.00%   0 Timers \r\n
+      13          19        2553          7  0.00%  0.00%  0.00%   0 WATCH_AFS \r\n
+      14        5444      789141          6  0.00%  0.00%  0.00%   0 IOSXE heartbeat \r\n
+      15          19        2632          7  0.00%  0.00%  0.00%   0 Btrace time base \r\n
+      16       10515      434084         24  0.00%  0.00%  0.00%   0 DB Lock Manager \r\n
+      17       10901     1578330          6  0.00%  0.00%  0.00%   0 GraphIt \r\n
+      18           0           1          0  0.00%  0.00%  0.00%   0 DB Notification \r\n
+      19           0           1          0  0.00%  0.00%  0.00%   0 ifIndex Receive \r\n
+      20           0           3          0  0.00%  0.00%  0.00%   0 Graceful Reload \r\n
+      21           0           1          0  0.00%  0.00%  0.00%   0 CEF MIB API \r\n
+      22           0           1          0  0.00%  0.00%  0.00%   0 IPC Apps Task \r\n
+      23        1772      315663          5  0.00%  0.00%  0.00%   0 IPC Event Notifi \r\n
+      24       10836     1541242          7  0.00%  0.00%  0.00%   0 IPC Mcast Pendin \r\n
+      25           0           1          0  0.00%  0.00%  0.00%   0 Platform appsess \r\n
+      26         141       26306          5  0.00%  0.00%  0.00%   0 IPC Dynamic Cach \r\n
+      27        1874      315663          5  0.00%  0.00%  0.00%   0 IPC Service NonC \r\n
+      28           0           1          0  0.00%  0.00%  0.00%   0 IPC Zone Manager \r\n
+      29       11312     1541241          7  0.00%  0.00%  0.00%   0 IPC Periodic Tim \r\n
+      30        9466     1541241          6  0.00%  0.00%  0.00%   0 IPC Deferred Por \r\n
+      31           0           1          0  0.00%  0.00%  0.00%   0 IPC Process leve \r\n
+      32           0           1          0  0.00%  0.00%  0.00%   0 IPC Seat Manager \r\n
+      33         545       90191          6  0.00%  0.00%  0.00%   0 IPC Check Queue \r\n
+      34           0           1          0  0.00%  0.00%  0.00%   0 IPC Seat RX Cont \r\n
+      35           0           1          0  0.00%  0.00%  0.00%   0 IPC Seat TX Cont \r\n
+      36        1274      157834          8  0.00%  0.00%  0.00%   0 IPC Keep Alive M \r\n
+      37        4553      315663         14  0.00%  0.00%  0.00%   0 IPC Loadometer \r\n
+      38           0           1          0  0.00%  0.00%  0.00%   0 IPC Session Deta \r\n
+      39           0           1          0  0.00%  0.00%  0.00%   0 SENSOR-MGR event \r\n
+      40      127522     1513652         84  0.00%  0.00%  0.00%   0 ARP Input \r\n
+      41       17305     1646657         10  0.00%  0.00%  0.00%   0 ARP Background \r\n
+      42           0           2          0  0.00%  0.00%  0.00%   0 ATM Idle Timer \r\n
+      43           0           1          0  0.00%  0.00%  0.00%   0 ATM ASYNC PROC \r\n
+      44           0           1          0  0.00%  0.00%  0.00%   0 AAA_SERVER_DEADT \r\n
+      45           0           1          0  0.00%  0.00%  0.00%   0 Policy Manager \r\n
+      46           0           2          0  0.00%  0.00%  0.00%   0 DDR Timers \r\n
+      47          37          45        822  0.00%  0.00%  0.00%   0 Entity MIB API \r\n
+      48           0           1          0  0.00%  0.00%  0.00%   0 IFS Agent Manage \r\n
+      49           4          11        363  0.00%  0.00%  0.00%   0 PrstVbl \r\n
+      50           0           2          0  0.00%  0.00%  0.00%   0 Serial Backgroun \r\n
+      51           0           1          0  0.00%  0.00%  0.00%   0 RMI RM Notify Wa \r\n
+      52           0           1          0  0.00%  0.00%  0.00%   0 IOSXE signals IO \r\n
+      53       13045     1578205          8  0.00%  0.00%  0.00%   0 Dynamic ARP Insp \r\n
+      54           0           1          0  0.00%  0.00%  0.00%   0 ARP Snoop \r\n
+      55           9          17        529  0.00%  0.00%  0.00%   0 SL Platform Back \r\n
+      56           0           1          0  0.00%  0.00%  0.00%   0 License IPC stat \r\n
+# NOT IN EXAM. ADDED SOME ALTERNATIVE OUTPUTS FOUND IN INTERNET, IN CASE OUTPUT ABOVE GIVES ISSUES.
+    dir: "Directory of bootflash:/\r\n\r\n   11  drwx            16384  Jul 18 2018\
+      \ 07:49:17 +00:00  lost+found\r\n325121  drwx             4096  May 10 2019\
+      \ 08:27:36 +00:00  .installer\r\n   12  -rw-        392479704  Jul 18 2018 07:50:04\
+      \ +00:00  csr1000v-mono-universalk9.16.09.01.SPA.pkg\r\n   13  -rw-        \
+      \ 40201438  Jul 18 2018 07:50:05 +00:00  csr1000v-rpboot.16.09.01.SPA.pkg\r\n\
+      \   14  -rw-             1941  Jul 18 2018 07:50:05 +00:00  packages.conf\r\n\
+      105665  drwx             4096  Jul 18 2018 07:51:06 +00:00  core\r\n146305 \
+      \ drwx             4096  Jul 18 2018 07:50:59 +00:00  .prst_sync\r\n154433 \
+      \ drwx             4096  Jul 18 2018 07:51:06 +00:00  .rollback_timer\r\n138177\
+      \  drwx            12288  May 11 2019 08:20:22 +00:00  tracelogs\r\n398273 \
+      \ drwx             4096  Jul 18 2018 07:52:07 +00:00  .dbpersist\r\n203201 \
+      \ drwx             4096  Jul 18 2018 07:51:17 +00:00  virtual-instance\r\n \
+      \  15  -rw-               30  May 10 2019 08:29:08 +00:00  throughput_monitor_params\r\
+      \n   16  -rw-            12559  May 10 2019 08:29:22 +00:00  cvac.log\r\n  \
+      \ 17  -rw-              157  May 10 2019 08:29:20 +00:00  csrlxc-cfg.log\r\n\
+      406401  drwx             4096  Jul 18 2018 07:52:00 +00:00  onep\r\n   18  -rw-\
+      \                1  May 10 2019 08:29:19 +00:00  .cvac_version\r\n   19  -rw-\
+      \               16  May 10 2019 08:29:19 +00:00  ovf-env.xml.md5\r\n\r\n7897796608\
+      \ bytes total (7045763072 bytes free)"
+    show access-lists: ''
+    show arp: "Protocol  Address          Age (min)  Hardware Addr   Type   Interface\r\
+      \nInternet  10.0.0.5                -   fa16.3e74.bf5a  ARPA   GigabitEthernet3\r\
+      \nInternet  10.0.0.6              136   fa16.3e15.f3b4  ARPA   GigabitEthernet3"
+    show bgp all cluster-ids: "Global cluster-id: 192.168.0.2 (configured: 0.0.0.0)\r\
+      \nBGP client-to-client reflection:         Configured    Used\r\n  all (inter-cluster\
+      \ and intra-cluster): ENABLED\r\n  intra-cluster:                         ENABLED\
+      \       ENABLED\r\n\r\nList of cluster-ids:\r\nCluster-id     #-neighbors C2C-rfl-CFG\
+      \ C2C-rfl-USE"
+    show bgp all neighbors: "For address family: IPv4 Unicast\r\nBGP neighbor is 192.168.0.1,\
+      \  remote AS 1, internal link\r\n Description: iBGP peer nx\r\n  BGP version\
+      \ 4, remote router ID 0.0.0.0\r\n  BGP state = Idle, down for 00:15:06\r\n \
+      \ Neighbor sessions:\r\n    0 active, is not multisession capable (disabled)\r\
+      \n    Stateful switchover support enabled: NO\r\n  Do log neighbor state changes\
+      \ (via global configuration)\r\n  Default minimum time between advertisement\
+      \ runs is 0 seconds\r\n\r\n  Address tracking is enabled, the RIB does not have\
+      \ a route to 192.168.0.1\r\n  Route to peer address reachability Up: 1; Down:\
+      \ 1\r\n    Last notification 00:17:24\r\n  Connections established 1; dropped\
+      \ 1\r\n  Last reset 00:15:06, due to BGP protocol initialization\r\n  Interface\
+      \ associated: (none) (peering address NOT in same link)\r\n  Transport(tcp)\
+      \ path-mtu-discovery is enabled\r\n  Graceful-Restart is disabled\r\n  SSO is\
+      \ disabled\r\n  No active TCP connection\r\n\r\nBGP neighbor is 192.168.0.3,\
+      \  remote AS 1, internal link\r\n Description: iBGP peer xr\r\n  BGP version\
+      \ 4, remote router ID 192.168.0.3\r\n  BGP state = Established, up for 23:55:52\r\
+      \n  Last read 00:01:27, last write 00:00:14, hold time is 180, keepalive interval\
+      \ is 60 seconds\r\n  Neighbor sessions:\r\n    1 active, is not multisession\
+      \ capable (disabled)\r\n  Neighbor capabilities:\r\n    Route refresh: advertised\
+      \ and received(new)\r\n    Four-octets ASN Capability: advertised and received\r\
+      \n    Address family IPv4 Unicast: advertised and received\r\n    Enhanced Refresh\
+      \ Capability: advertised\r\n    Multisession Capability: \r\n    Stateful switchover\
+      \ support enabled: NO for session 1\r\n  Message statistics:\r\n    InQ depth\
+      \ is 0\r\n    OutQ depth is 0\r\n    \r\n                         Sent     \
+      \  Rcvd\r\n    Opens:                  1          1\r\n    Notifications:  \
+      \        0          0\r\n    Updates:                4          2\r\n    Keepalives:\
+      \          1573        967\r\n    Route Refresh:          0          0\r\n \
+      \   Total:               1578        970\r\n  Do log neighbor state changes\
+      \ (via global configuration)\r\n  Default minimum time between advertisement\
+      \ runs is 0 seconds\r\n\r\n  Address tracking is enabled, the RIB does have\
+      \ a route to 192.168.0.3\r\n  Route to peer address reachability Up: 8; Down:\
+      \ 7\r\n    Last notification 12:07:07\r\n  Connections established 1; dropped\
+      \ 0\r\n  Last reset never\r\n  Interface associated: (none) (peering address\
+      \ NOT in same link)\r\n  Transport(tcp) path-mtu-discovery is enabled\r\n  Graceful-Restart\
+      \ is disabled\r\n  SSO is disabled\r\nConnection state is ESTAB, I/O status:\
+      \ 1, unread input bytes: 0            \r\nConnection is ECN Disabled, Mininum\
+      \ incoming TTL 0, Outgoing TTL 255\r\nLocal host: 192.168.0.2, Local port: 179\r\
+      \nForeign host: 192.168.0.3, Foreign port: 27376\r\nConnection tableid (VRF):\
+      \ 0\r\nMaximum output segment queue size: 50\r\n\r\nEnqueued packets for retransmit:\
+      \ 0, input: 0  mis-ordered: 0 (0 bytes)\r\n\r\nEvent Timers (current time is\
+      \ 0x526A137):\r\nTimer          Starts    Wakeups            Next\r\nRetrans\
+      \          1581          4             0x0\r\nTimeWait            0        \
+      \  0             0x0\r\nAckHold           970        951             0x0\r\n\
+      SendWnd             0          0             0x0\r\nKeepAlive           0  \
+      \        0             0x0\r\nGiveUp              0          0             0x0\r\
+      \nPmtuAger            0          0             0x0\r\nDeadWait            0\
+      \          0             0x0\r\nLinger              0          0           \
+      \  0x0\r\nProcessQ            0          0             0x0\r\n\r\niss: 1278377312\
+      \  snduna: 1278407392  sndnxt: 1278407392\r\nirs: 1194708170  rcvnxt: 1194726676\r\
+      \n\r\nsndwnd:  31590  scale:      0  maxrcvwnd:  16384\r\nrcvwnd:  15434  scale:\
+      \      0  delrcvwnd:    950\r\n\r\nSRTT: 1000 ms, RTTO: 1003 ms, RTV: 3 ms,\
+      \ KRTT: 0 ms\r\nminRTT: 3 ms, maxRTT: 1126 ms, ACK hold: 200 ms\r\nuptime: 86152484\
+      \ ms, Sent idletime: 14855 ms, Receive idletime: 14640 ms \r\nStatus Flags:\
+      \ passive open, gen tcbs\r\nOption Flags: nagle, path mtu capable\r\nIP Precedence\
+      \ value : 6\r\n\r\nDatagrams (max data segment is 1240 bytes):\r\nRcvd: 2546\
+      \ (out of order: 0), with data: 970, total data bytes: 18505\r\nSent: 2544 (retransmit:\
+      \ 4, fastretransmit: 0, partialack: 0, Second Congestion: 0), with data: 1577,\
+      \ total data bytes: 30079\r\n\r\n Packets received in fast path: 0, fast processed:\
+      \ 0, slow path: 0\r\n fast lock acquisition failures: 0, slow path: 0\r\nTCP\
+      \ Semaphore      0x7F10ABD72368  FREE \r\n\r\n\r\nFor address family: IPv6 Unicast\r\
+      \n\r\nFor address family: IPv4 Multicast\r\n\r\nFor address family: L2VPN E-VPN\r\
+      \n\r\nFor address family: MVPNv4 Unicast\r\n\r\nFor address family: MVPNv6 Unicast"
+    show bgp summary: "% Command accepted but obsolete, unreleased or unsupported;\
+      \ see documentation.\r\nBGP router identifier 192.168.0.2, local AS number 1\r\
+      \nBGP table version is 15, main routing table version 15\r\n2 network entries\
+      \ using 496 bytes of memory\r\n2 path entries using 272 bytes of memory\r\n\
+      2/2 BGP path/bestpath attribute entries using 560 bytes of memory\r\n0 BGP route-map\
+      \ cache entries using 0 bytes of memory\r\n0 BGP filter-list cache entries using\
+      \ 0 bytes of memory\r\nBGP using 1328 total bytes of memory\r\nBGP activity\
+      \ 3/1 prefixes, 3/1 paths, scan interval 60 secs\r\n\r\nNeighbor        V  \
+      \         AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd\r\n192.168.0.1\
+      \     4            1       0       0        1    0    0 00:15:02 Idle\r\n192.168.0.3\
+      \     4            1     970    1578       15    0    0 23:55:48        1"
+# END OF ALTERNATIVE MOCK OUTPUTS. BELOW IS IN EXAM SCRIPT AGAIN.
+    show version: ''
+    term length 0: ''
+    term width 0: ''
+    term width 511: ''
+    terminal session-timeout 0: ''
+  prompt: switch#

@@ -1,0 +1,21 @@
+no telemetry ietf subscription 1
+no telemetry ietf subscription 2
+!
+telemetry ietf subscription 1
+ encoding encode-kvgpb
+ ! TODO Add filter xpath
+ source-address 192.168.5.112
+ source-vrf management
+ ! TODO Add stream & update
+ receiver ip address 192.168.4.27 57000 protocol grpc-tls profile telegraf
+!
+telemetry ietf subscription 2
+ ! TODO Ensure streams are sent as self-describing protobufs
+ encoding encode-kvgpb
+ ! TODO Add filter xpath
+ source-address 192.168.5.112
+ source-vrf management
+ ! TODO Add stream & update
+ receiver ip address 192.168.4.27 57000 protocol grpc-tls profile telegraf
+netconf-yang
+restconf
