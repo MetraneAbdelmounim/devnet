@@ -52,7 +52,7 @@ class Mgmt_Compliance:
         * Create and return a Netmiko ConnectHandler for interacting
           with a Cisco IOS XE device using the attributes of this class.
         """
-        # TODO: replace pass with a proper ConnectHandler instance
+        # TODO: replace `pass` with a proper ConnectHandler instance
         pass
 
     # -------------------------------------------------------------------------
@@ -89,6 +89,7 @@ class Mgmt_Compliance:
         unauthorized: List[str] = []
 
         # TODO: populate the `unauthorized` list based on `local_users_raw`
+
         return unauthorized
 
     # -------------------------------------------------------------------------
@@ -107,16 +108,14 @@ class Mgmt_Compliance:
         net_connect = self.connect()
 
         # TODO: Pull the current SNMP community configuration from the device.
-        #
-        # Use a command that is supported by NTC templates, for example:
-        #   show snmp community
+        #       Use a command that is supported by NTC templates, for example:
+        #           show snmp community
         snmp_raw = ""
 
         # TODO: disconnect from the device
         net_connect.disconnect()
 
         # TODO: Parse the output using TextFSM / NTC templates via cli_utils.parse_output.
-        #
         # Example:
         #   parsed = parse_output(
         #       platform="cisco_ios",

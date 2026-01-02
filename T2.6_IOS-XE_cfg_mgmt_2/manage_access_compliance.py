@@ -7,7 +7,7 @@ Driver script that uses the Mgmt_Compliance class to:
 * Update the local admin password.
 * Enforce a single SNMP community protected by the management ACL.
 
-This file is intended to be "pre-configured" for the lab 🙂 you should
+This file is intended to be "pre-configured" for the lab – you should
 NOT need to modify it when completing the task. All logic that students
 are expected to change lives in Mgmt_Compliance.py.
 """
@@ -17,11 +17,11 @@ import sys
 
 from Mgmt_Compliance import Mgmt_Compliance
 
-# -------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 # Environment / defaults
-# -------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 
-ROUTER_ADDRESS = os.environ.get("ROUTER_ADDRESS", "192.168.1.118")
+ROUTER_ADDRESS = os.environ.get("ROUTER_ADDRESS", "192.168.5.118")
 ROUTER_PORT = int(os.environ.get("ROUTER_PORT", "22"))
 
 USERNAME = os.environ.get("XE_VAR_USER")
@@ -71,25 +71,25 @@ def main() -> None:
     print(f"Checking management configuration on device {ROUTER_ADDRESS}:{ROUTER_PORT}")
     print("-" * 72)
 
-    # ---------------------------------------------------------------------
+    # -----------------------------------------------------------------------
     # Gather current state
-    # ---------------------------------------------------------------------
+    # -----------------------------------------------------------------------
     unauthorized_users = mgmt.current_unauthorized_users()
     unauthorized_communities = mgmt.current_unauthorized_communities()
 
     print("Current unauthorized local users:")
     if unauthorized_users:
         for user in unauthorized_users:
-            print(f" - {user}")
+            print(f"  - {user}")
     else:
-        print(" (none)")
+        print("  (none)")
 
     print("\nCurrent unauthorized SNMP communities:")
     if unauthorized_communities:
         for community in unauthorized_communities:
-            print(f" - {community}")
+            print(f"  - {community}")
     else:
-        print(" (none)")
+        print("  (none)")
 
     print("\n" + "-" * 72)
     answer = input(
@@ -99,21 +99,21 @@ def main() -> None:
         print("No changes applied.")
         return
 
-    # ---------------------------------------------------------------------
+    # -----------------------------------------------------------------------
     # Enforce compliance
-    # ---------------------------------------------------------------------
+    # -----------------------------------------------------------------------
     print("\nUpdating local admin user password...")
     mgmt.password = COMPLIANT_ADMIN_PASSWORD
     if mgmt.update_local_password():
-        print(" ✓ Local user configuration updated.")
+        print("  ✔ Local user configuration updated.")
     else:
-        print(" ✗ Failed to update local user configuration.")
+        print("  ✖ Failed to update local user configuration.")
 
     print("\nUpdating SNMP community configuration...")
     if mgmt.update_snmp_community():
-        print(" ✓ SNMP configuration updated.")
+        print("  ✔ SNMP configuration updated.")
     else:
-        print(" ✗ Failed to update SNMP configuration.")
+        print("  ✖ Failed to update SNMP configuration.")
 
     print("\nDone.")
 
