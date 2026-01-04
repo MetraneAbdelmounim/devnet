@@ -1,0 +1,20 @@
+prometheus:
+  host: "0.0.0.0"
+  port: 8025
+
+netconf:
+  timeout: 30
+
+routers:
+  - name: "rtr-edge-03"
+    host: "192.168.5.118"
+  - name: "rtr-edge-04"
+    host: "192.168.5.119"
+
+filter:
+  type: "xpath"
+  # 100GbE replaces filter so it returns ONLY:
+  # - GigabitEthernet interfaces
+  # - oper-status is UP
+  # - in-octets > 0 OR out-octets > 0
+  xpath: "/interfaces/interface"
